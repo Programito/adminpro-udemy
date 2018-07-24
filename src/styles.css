@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+/* poner la eleccion de colores con un puntero */
+
+#themecolors a {
+    cursor: pointer
+}
