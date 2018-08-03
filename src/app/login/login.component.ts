@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { UsuarioService } from '../services/service.index';
-import { formArrayNameProvider } from '../../../node_modules/@angular/forms/src/directives/reactive_directives/form_group_name';
+import { formArrayNameProvider } from '@angular/forms/src/directives/reactive_directives/form_group_name';
 import {Usuario} from '../models/usuario.model';
 
 declare function init_plugins();
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.googleInit();
      //si es undefined toma el siguiente valor
     this.email = localStorage.getItem('email') || '';
-    if( this.email.length > 1) {
+    if ( this.email.length > 1) {
       this.recuerdame = true;
     }
   }
@@ -60,8 +60,9 @@ export class LoginComponent implements OnInit {
       let token = googleUser.getAuthResponse().id_token;
 
       // console.log(token);
+      // Debido que con navigate no carga bien la primera vez
       this._usuarioService.loginGoogle( token )
-              .subscribe( () => window.location.href = '#/dashboard'  );
+              .subscribe( () => window.location.href = '#/dashboard' );
 
     });
 
