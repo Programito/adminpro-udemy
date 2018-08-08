@@ -27,10 +27,28 @@ export class UsuarioService {
   constructor(public http: HttpClient,
           public router: Router,
           public _subirArchivoService: SubirArchivoService
-) {
+  ) {
 
     // console.log('Servicio de usuario listo');
     this.cargarStorage();
+  }
+
+  renuevaToken() {
+    let url = URL_SERVICIOS + '/login/renuevatoken';
+    url += '?token=' + this.token;
+
+    //console.log('token renovado');
+
+    return this.http.get(url)
+          .map( (resp: any) => {
+              this.token = resp.token;
+              localStorage.setItem('token', this.token);
+              return true;
+          }).catch( err => {
+            swal( 'No se pudo renovar token', 'No fue posible renovar token', 'error' );
+            this.router.navigate(['login']);
+            return Observable.throw( err );
+          });
   }
 
   estaLogueado() {
@@ -120,7 +138,7 @@ export class UsuarioService {
     });
   }
 
-  actualizarUsuario( usuario: Usuario){
+  actualizarUsuario( usuario: Usuario) {
     let url = URL_SERVICIOS + '/usuario/' + usuario._id;
     url += '?token=' + this.token;
     return this.http.put(url, usuario)

@@ -4,6 +4,8 @@ import { URL_SERVICIOS } from '../../config/config';
 import { UsuarioService } from '../usuario/usuario.service';
 import { Hospital } from '../../models/hospital.model';
 
+import * as sweetalert from 'sweetalert';
+
 @Injectable()
 export class HospitalService {
 
@@ -57,7 +59,7 @@ export class HospitalService {
     return this.http.put(url, hospital)
     . map((resp: any) => {
       swal('Hosptial Actualizado', hospital.nombre, 'success');
-      return resp.hospital;});
+      return resp.hospital; });
   }
 
 }
